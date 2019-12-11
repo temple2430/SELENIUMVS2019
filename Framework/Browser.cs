@@ -78,13 +78,12 @@ namespace Framework
             return present;
         }
 
-        public static ISearchContext Driver { get {return _webDriver;} }
+        public static IWebDriver Driver { get {return _webDriver;} }
         public static string Title { get { return _webDriver.Title; } }
 
         public static void Initialize()
         {
             _webDriver = GetDriver(Drivers.Chrome);
-            Goto("");
         }
 
         public static void Close()

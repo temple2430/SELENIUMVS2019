@@ -1,17 +1,20 @@
+using System;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace Framework.Pages
 {
     public class LoginPage
     {
+        WebDriverWait _wait = new WebDriverWait(Browser.Driver, TimeSpan.FromSeconds(5));
         public void Goto()
         {
-            Browser.Goto("/wp-login.php");
+            Browser.Goto("/wp-login.php");          
         }
 
-        public void Login(string userName, string password)
+        public void LoginWithoutClef(string userName, string password)
         {
-            Browser.Driver.FindElement(By.LinkText("log in with a password")).Click();
+
             //find the field for ther user name
             var userNameField = Browser.Driver.FindElement(By.Id("user_login"));
             userNameField.SendKeys(userName);
@@ -22,5 +25,6 @@ namespace Framework.Pages
 
             Browser.Driver.FindElement(By.Id("wp-submit")).Click();
         }
+
     }
 }
