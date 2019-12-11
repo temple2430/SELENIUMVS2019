@@ -1,14 +1,23 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.IO;
+using System.Reflection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 
 namespace QtpTests
 {
     [TestClass]
     public class ValidUserCanSuccessfullyLogin3
     {
-        static  IWebDriver driver = new ChromeDriver();
-        
+        static IWebDriver driver = GetChromeDriver();
+
+        private static IWebDriver GetChromeDriver()
+        {
+            var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            return new ChromeDriver(outPutDirectory);
+        }
+
         [TestMethod]
         public void RunTest()
         {

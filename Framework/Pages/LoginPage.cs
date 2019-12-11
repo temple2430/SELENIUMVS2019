@@ -14,8 +14,6 @@ namespace Framework.Pages
 
         public void LoginWithoutClef(string userName, string password)
         {
-            var link = _wait.Until(ExpectedConditions.ElementIsVisible(By.LinkText("login with a password")));
-            link.Click();
 
             //find the field for ther user name
             var userNameField = Browser.Driver.FindElement(By.Id("user_login"));

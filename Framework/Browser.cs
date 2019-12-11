@@ -4,6 +4,7 @@ using OpenQA.Selenium.Chrome;
 using System.Threading;
 using System.IO;
 using System.Reflection;
+using OpenQA.Selenium.Firefox;
 
 namespace Framework
 {
@@ -28,10 +29,20 @@ namespace Framework
 
         internal static IWebDriver GetDriver(Drivers driver)
         {
-            var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var relativePath = @"..\..\..\Framework\Drivers";
-            var chromeDriverPath = Path.GetFullPath(Path.Combine(outPutDirectory, relativePath));
-            return new ChromeDriver(chromeDriverPath);
+            //added to handle the firefox driver
+            switch (driver)
+            {
+                case Drivers.Chrome:
+                    var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                    var relativePath = @"..\..\..\Framework\Drivers";
+                    var chromeDriverPath = Path.GetFullPath(Path.Combine(outPutDirectory, relativePath));
+                    return new ChromeDriver(chromeDriverPath);
+                case Drivers.Firefox:
+                    return new FirefoxDriver();
+                default:
+                    throw new NotImplementedException("I do not know the driver that you supplied.");
+            }
+
         }
 
         public static bool WaitUntilElementIsDisplayed(By element, int timeoutInSeconds)
